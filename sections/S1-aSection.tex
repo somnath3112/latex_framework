@@ -1,0 +1,38 @@
+\documentclass[main.tex]{subfiles}
+
+%
+\begin{document}
+
+
+\ifsubbuild
+\setcounter{section}{2}
+\section{Name}
+\fi
+
+\begin{parag}{How to use the `parag' environment?}
+ \pitemo{This is the first point - about `pitemo'}{
+ Every answer is segregated point-wise using `pitemo' command. The first input of `pitemo' command is a key-point answer to the key question. The second input is a descriptive answer which is composed of statements that will make the paragraph in final compilation.}
+ %
+ \pitemo{This is the second point - format}{Note that all points have a format of writing. Its important that there is no space after we finish the description to ensure proper spacing in the final compilation - see the compilation. Its also important to keep description in the next line for the same reason - see compilation. Also, the comment after each `pitemo' command is not mandatory. \textbf{space here is exaggerated sometimes} }
+ %
+ \pitemo{This is the third point - controlling compilation}{
+ The compilation in debug mode is controlled by the variable `paraen'. Debug mode is disabled if `ifparaentrue' is commented in `global\_preamble.sty'. In debug mode the key-questions and key-point answers are also compiled.}
+\end{parag}
+
+
+\subsection{A Subsection} 
+ 
+
+\subsection{Another Subsection}
+
+\subsection{Toast to Einstein} 
+
+Here's citations to a paper \cite{einstein}
+
+
+\ifsubbuild
+\printbibliography[segment=\therefsegment, heading=subbibliography] % print chapter bibliography
+\fi 
+
+
+\end{document}

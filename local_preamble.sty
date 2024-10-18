@@ -1,0 +1,229 @@
+%% Important settings %%%%%%%%%%%%%%%%%%%%%%%%
+
+% manipulate pages 
+% \usepackage{page_manipulate}
+    
+% manage paragraph details 
+%
+\newif\ifparaen
+\newif\ifparabulleten
+\paraentrue % enables paragraph description 
+% \parabulletentrue % bullets only is enabled  (\paraentrue must be true)
+\ifparaen 
+    % key questions 
+    \newcommand{\keyq}[1]{\noindent \color{gray} \textit{Key question(s): #1} \color{black} }
+    \newcounter{pitemcntr} 
+    \newcommand{\pitem}[1]{\refstepcounter{pitemcntr} \par \textbf{\thepitemcntr. #1: }} 
+    \newcommand{\pitemo}[2]{\refstepcounter{pitemcntr} \par \textbf{\thepitemcntr. #1:} #2} 
+    \newenvironment{parag}[1]
+        { \keyq{#1} }
+        { \par \setcounter{pitemcntr}{0} 
+        \vspace{0.6cm}
+        }
+\else 
+    \newdimen\origiwspc%
+    % \newdimen\origiwstr%
+    \origiwspc=\fontdimen2\font% original inter word space
+    % \origiwstr=\fontdimen3\font% original inter word stretch
+    \newcommand{\keyq}[1]{}
+    \newcommand{\pitem}[1]{\fontdimen2\font=\origiwspc}
+    %---
+    % \newcounter{Skip}% default is zero % needed to ensure that my iffalse command is not posing issue 
+    % \newcommand*{\mySkipBegin}{%
+    %   \ifnum\value{Skip}=1 %
+    %     \csname iffalse\expandafter\endcsname
+    %   \else
+    %     \csname iftrue\expandafter\endcsname
+    %   \fi
+    % }
+    % \let\mySkipEnd=\fi
+    % \newcommand{\pitemo}[2]{#2\mySkipBegin}
+    % \newenvironment{parag}[1]{}{\let\mySkipEnd} 
+    % %
+    % \setcounter{Skip}{1} % skip everything 
+    %---
+    % \newcommand{\pitemo}[2]{#2}
+    % \newenvironment{parag}[1]{}{} 
+    \newcommand{\pitemo}[2]{ \fontdimen2\font=\origiwspc{}#2\fontdimen2\font=-0.01ex}
+    \newenvironment{parag}[1]{\fontdimen2\font=-\origiwspc}{\fontdimen2\font=\origiwspc} 
+    % \newcommand{\pitemo}[2]{\fi #2 \csname iffalse\expandafter\endcsname}
+    % \newenvironment*{parag}[1]{\csname iffalse\expandafter\endcsname}{\fi} 
+    % 
+\fi 
+\ifparabulleten
+    \renewcommand{\pitemo}[2]{\refstepcounter{pitemcntr} \par \textbf{\thepitemcntr. #1:} } 
+\fi 
+
+% hyp
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=purple,
+    citecolor=blue,
+}
+
+% Citations management 
+%  source: https://tex.stackexchange.com/questions/406205/no-citation-bibdata-or-bibstyle-commands
+%          https://howtoinstall.co/en/ubuntu/xenial/biber
+%  refsegment: https://tex.stackexchange.com/questions/199336/biblatex-reference-both-by-chapter-and-at-the-end-of-the-book
+%  refsection: https://tex.stackexchange.com/questions/128196/problem-with-refsection
+\usepackage[backend=biber,refsegment=section,style=authoryear,uniquename=init,giveninits]{biblatex}
+\DefineBibliographyStrings{english}{%\unspace
+nodate = {\ifboolexpr{test{\ifentrytype{online}}}{}{n\adddot d\adddot}},
+}
+\addbibresource{references.bib}
+
+% more commands 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    
+% %% Fonts etc 
+% \usepackage{amsmath} % reudndant 
+% \usepackage{amsfonts}
+% \usepackage{calrsfs} 
+
+% %% Formatting 
+% \usepackage{blkarray} 
+% \usepackage{ragged2e} 
+% \usepackage{enumitem} 
+% \usepackage{setspace}
+% % \usepackage{xcolor} % redundant 
+% % \usepackage{graphicx} % redundant 
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{bbm}
+% \usepackage[linesnumbered,ruled]{algorithm2e} % alternate 
+% % \usepackage{algorithm}
+% \usepackage{algorithmic}
+% %
+% \usepackage{tikz} 
+% \usepackage{tikz-3dplot}
+
+% %% Indexing 
+% \usepackage{imakeidx}
+% \makeindex[columns=3, title=Alphabetical Index, options= -s example_style.ist, intoc]
+
+
+% %% Symbols 
+% \usepackage{pifont}% for symbols
+
+
+% % More 
+% \usepackage{color,soulutf8}
+% \usepackage{afterpage}
+% \usepackage{lscape}
+
+
+% Subequations 
+\allowdisplaybreaks
+\newcounter{eqc} %  My equation counter as variable 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% %% Fonts etc 
+% \usepackage{amsmath} % redundant 
+% \usepackage{amsfonts}
+
+% %% Formatting 
+% \usepackage{blkarray} 
+% \usepackage{ragged2e} 
+% \usepackage{enumitem} 
+% \usepackage{setspace}
+% \usepackage{xcolor} % redundant 
+% \usepackage{graphicx} % redundant 
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{bbm}
+% \usepackage[linesnumbered,ruled]{algorithm2e} % alternate 
+% %
+% \usepackage{tikz} 
+% \usepackage{tikz-3dplot}
+
+
+% %% Symbols 
+% \usepackage{pifont}% for symbols
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Theorems etc.
+% \setstretch{1.3}
+% \newtheorem{thm}{Theorem}[section]
+% \newtheorem{lem}[thm]{Lemma}
+% \newtheorem{corr}{Corollary}[thm]
+% \newtheorem{rem}{Remark}
+% \newtheorem{ex}{Example}[section]
+% \newtheorem{prop}{Proposition}[section]
+% \newenvironment{defy}[1]{\textit{#1}: }{}
+% \newenvironment{prf}{\noindent\textit{Proof. }}{\prvd}
+% %
+% \newcommand{\prvd}{\ding{114}}
+
+
+% % Other symbols 
+% \newcommand{\blt}{\ding{75}}%
+
+
+% % MULTI-EDIT
+% \newcommand{\corb}{\color{black}} % black 
+% \newcommand{\comt}{\color{black}}
+% \newcommand{\comr}{\color{purple}}% Mr Ravitharan 
+% \newcommand{\coms}{\color{black}}% Prof. Sunita \color{blue}
+% \newcommand{\cora}{\color{black}} % Prof. Arpita 
+% \newcommand{\cors}{\color{black}} % Prof. Sunita \color{blue}
+% \newcommand{\corh}{\color{black!75!black}} % Prof. Somnath highlight 
+% % older multi-edit 
+% \newcommand{\autha}[1][*]{\textcolor{black}{#1}} % for Prof Leena purple
+% \newcommand{\authar}[1][*]{\textcolor{black}{#1}} % for Prof Leena (recent) purple
+% \newcommand{\authb}[1][*]{\textcolor{black}{#1}} % corrected text - removes from the main pdf blue
+% \newcommand{\authab}[1][*]{\textcolor{black}{#1}} % for marking text in blue blue
+
+
+
+% % Path settings 
+% \newcommand{\secpath}{ch-mtrpp-files}
+
+
+% %% TIKZ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usetikzlibrary{shapes.geometric, arrows}
+% \usetikzlibrary{decorations.pathreplacing}
+% \usetikzlibrary{decorations.markings}
+
+% \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!00]
+% \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text width=4cm, text centered, draw=black, fill=blue!00]
+% \tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text width=4cm, text centered, draw=black, fill=orange!00]
+% \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text width=2.5cm, text centered, draw=black, fill=green!00]
+% \tikzstyle{arrow} = [thick,->,>=stealth]
+
+% %\tikzset{%
+% %  >={Latex[width=2mm,length=2mm]},
+% %  % Specifications for style of nodes:
+% %            base/.style = {rectangle, rounded corners, draw=black,
+% %                           minimum width=4cm, minimum height=1cm,
+% %                           text centered, font=\sffamily},
+% %  activityStarts/.style = {base, fill=blue!30},
+% %       startstop/.style = {base, fill=red!30},
+% %    activityRuns/.style = {base, fill=green!30},
+% %         process/.style = {base, minimum width=2.5cm, fill=orange!15,
+% %                           font=\ttfamily},
+% %}
+
+% \tikzstyle{vertex} = [circle, radius=0.1cm, text centered, draw=black, fill=orange!00]
+
+% % tikz big arrowheads
+% \tikzset{->-/.style={decoration={
+% 			markings,
+% 			mark=at position #1 with
+% 			{\arrow[scale=1.5,>=stealth]{>}}},postaction={decorate}}}
+
+% % Maths
+% \newcommand{\invddots}{\reflectbox{$\ddots$}}
+
+
+
+% %% algorithm 
+% \newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}

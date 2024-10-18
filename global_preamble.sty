@@ -1,0 +1,165 @@
+% Global Preamble %%
+
+% Various accents and characters %%
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+
+% Subfile management 
+%  source: https://www.overleaf.com/learn/latex/Multi-file_LaTeX_projects
+\usepackage[subpreambles=false]{standalone} % TRUE if there's separate settings in that subfile
+\usepackage{import}
+\usepackage{subfiles}
+
+% Formatting 
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+%
+% \usepackage{set_simple1_oc_lbc_copy}
+% For something :P (maybe \emph or \ul) 
+\usepackage[normalem]{ulem}
+% include pdf 
+\usepackage{pdfpages}
+% Table 
+\usepackage{booktabs, multirow} % for borders and merged ranges
+\usepackage{soul}% for underlines
+%\usepackage[table]{xcolor} % for cell colors
+\usepackage{changepage,threeparttable} % for wide tables
+%
+\usepackage{mathtools}
+\newcommand{\loctag}{notag}
+\usepackage{footmisc}
+
+% Citations management 
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}  %hyperref still needs to be put at the end!
+%
+
+% Other package management 
+
+
+
+% Global commands and settings %%
+
+
+% commands 
+    % start of a chapter 
+\newcommand{\chapstart}[1]{\begin{adjustwidth}{30pt}{30pt}\textit{#1}\end{adjustwidth} \vspace{1cm}}
+
+\newenvironment{chapterstart}{\begin{adjustwidth}{30pt}{30pt}\itshape}{\end{adjustwidth} \vspace{1cm}}
+    
+
+
+% Subfile build %%
+\newif\ifsubbuild 
+\subbuildtrue % enable titles, etc in subfiles 
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{local_preamble}
+% Below are some things to be put in a local_preamble
+
+\iffalse 
+
+    %% Key commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % manipulate pages 
+    \usepackage{page_manipulate}
+
+    % manage paragraph details 
+    % \newif\ifparaen
+    % % \paraentrue % enables paragraph description 
+    % \ifparaen 
+    %     % key questions 
+    %     \newcommand{\keyq}[1]{\noindent \color{gray} \textit{Key question(s): #1} \color{black} }
+    %     \newcounter{pitemcntr} 
+    %     \newcommand{\pitem}[1]{\refstepcounter{pitemcntr} \par \textbf{\thepitemcntr. #1: }} 
+    %     \newcommand{\pitemo}[2]{\refstepcounter{pitemcntr} \par \textbf{\thepitemcntr. #1:} #2} 
+    %     \newenvironment{parag}[1]
+    %         { \keyq{#1} }
+    %         { \par \setcounter{pitemcntr}{0} 
+    %         \vspace{0.6cm}
+    %         }
+    % \else 
+    %     \newdimen\origiwspc%
+    %     % \newdimen\origiwstr%
+    %     \origiwspc=\fontdimen2\font% original inter word space
+    %     % \origiwstr=\fontdimen3\font% original inter word stretch
+    %     \newcommand{\keyq}[1]{}
+    %     \newcommand{\pitem}[1]{\fontdimen2\font=\origiwspc}
+    %     %---
+    %     % \newcounter{Skip}% default is zero % needed to ensure that my iffalse command is not posing issue 
+    %     % \newcommand*{\mySkipBegin}{%
+    %     %   \ifnum\value{Skip}=1 %
+    %     %     \csname iffalse\expandafter\endcsname
+    %     %   \else
+    %     %     \csname iftrue\expandafter\endcsname
+    %     %   \fi
+    %     % }
+    %     % \let\mySkipEnd=\fi
+    %     % \newcommand{\pitemo}[2]{#2\mySkipBegin}
+    %     % \newenvironment{parag}[1]{}{\let\mySkipEnd} 
+    %     % %
+    %     % \setcounter{Skip}{1} % skip everything 
+    %     %---
+    %     % \newcommand{\pitemo}[2]{#2}
+    %     % \newenvironment{parag}[1]{}{} 
+    %     \newcommand{\pitemo}[2]{\fontdimen2\font=\origiwspc{}#2\fontdimen2\font=-0.01ex}
+    %     \newenvironment{parag}[1]{\fontdimen2\font=-\origiwspc}{\fontdimen2\font=\origiwspc} 
+    %     % \newcommand{\pitemo}[2]{\fi #2 \csname iffalse\expandafter\endcsname}
+    %     % \newenvironment*{parag}[1]{\csname iffalse\expandafter\endcsname}{\fi} 
+    %     % 
+    % \fi 
+    
+    % hyp
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=blue!60!black,
+        filecolor=blue!60!black,      
+        urlcolor=blue!60!black,
+        citecolor=blue!60!black,
+    }
+    
+    % Citations management 
+    %  source: https://tex.stackexchange.com/questions/406205/no-citation-bibdata-or-bibstyle-commands
+    %          https://howtoinstall.co/en/ubuntu/xenial/biber
+    %  refsegment: https://tex.stackexchange.com/questions/199336/biblatex-reference-both-by-chapter-and-at-the-end-of-the-book
+    %  refsection: https://tex.stackexchange.com/questions/128196/problem-with-refsection
+    % \usepackage[backend=biber,
+    % style=nature,
+    % citestyle=authoryear,
+    % autocite=inline,
+    % refsection=chapter]{biblatex}
+    \usepackage[backend=biber,refsegment=chapter,style=authoryear,uniquename=init,giveninits]{biblatex}
+    \addbibresource{citationsall2.bib}
+    
+    % more commands 
+    \newcommand{\work}[1]{dissertation}
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Subequations 
+    \allowdisplaybreaks
+    \newcounter % Variable for subequations re-labeling 
+    % Usage (Source: https://tex.stackexchange.com/questions/506412/what-is-the-subequations-counter-named)
+    % \setcounter{eqc}{\theequation}
+    % \stepcounter{eqc}
+    % \begin{subequations}
+    % \makeatletter
+    % \def\@currentlabel{P\arabic{eqc}}
+    % \makeatother
+    % \label{form:ch}
+    % \renewcommand{\theequation}{P\arabic{eqc}-\alph{equation}}
+    %  \begin{alignat}{1}
+    % 	\label{form:chcost}
+    %  	\min_{x_r} ~&\sum_{r \in \mathcal{R}} \bar{c}_r x_r \\ 
+    % 	\label{form:chobg}
+    %  	\textit{s.t.} ~& \sum_{r \in \mathcal{R}_m} b_{mr} x_{r} \geq 1, ~\forall u_m \in \mathbbm{V}_{RC} 
+    %  \end{alignat}
+    % \end{subequations}
+
+\fi 

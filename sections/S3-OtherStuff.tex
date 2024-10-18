@@ -1,0 +1,44 @@
+\documentclass[main.tex]{subfiles}
+%
+\begin{document}
+
+
+\ifsubbuild
+\setcounter{section}{1}
+\section{Name}
+\fi
+
+\subsection{Toast to Dirac} 
+
+
+% \setcounter{eqc}{\theequation}
+\stepcounter{eqc}
+\begin{subequations}
+\makeatletter
+\def\@currentlabel{P\arabic{eqc}}
+\makeatother
+\label{form:lrp}
+\renewcommand{\theequation}{P\arabic{eqc}-\alph{equation}}
+ \begin{alignat}{2}
+ 	\nonumber 
+ 	\textit{LRP}(\Lambda) ~:~ \textit{zLRP}(\Lambda^*)= & \max_{\Lambda} ~&& \sum_{u_m \in {V}_R} \left[ \left\{ \sum_{r \in \mathcal{R}_m} \left( \bar{c}_r - \sum_{u_m \in {V}_R} \lambda_m b_{mr} - \lambda_0 \right) \frac{q_m}{\bar{q}_r} \xi_{mr} \right\} \right. \\
+	\label{form:lrpcost}
+ 	&&& \left. + \sum_{r \in \mathcal{R}} \left\{ \sum_{s \in \mathcal{S}_r} \left( \bar{\bar{c}}_s - \sum_{u_m \in {V}_R\backslash {V}_{RC}} \lambda_m b_{mr} g_{rs} - \lambda_{\infty} \right) \frac{\bar{t}_r}{\bar{\bar{t}}_s} \zeta_{rs} \right\} + \lambda_m \right]\\
+ 	\nonumber 
+ 	&&& + |\mathcal{K}| \lambda_0 + |\mathcal{K}| \lambda_{\infty} \\ 
+	\label{form:lrpineq}
+ 	& \textit{s.t.} ~&& \lambda_m \geq 0, ~~\forall u_m \in {V}_R\\
+% 	\label{form:lrpineq2}
+%  	&&& \lambda_{\infty} \geq 0 \\
+	\label{form:lrpeq}
+ 	&&& \lambda_0, \lambda_{\infty} \in {R} 
+ \end{alignat}
+\end{subequations} 
+
+Here's citations to a paper \cite{dirac}
+
+\ifsubbuild
+\printbibliography[segment=\therefsegment, heading=subbibliography] % print chapter bibliography
+\fi 
+
+\end{document}

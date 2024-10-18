@@ -1,0 +1,20 @@
+\documentclass[main.tex]{subfiles}
+
+%
+\begin{document}
+
+\ifsubbuild
+\setcounter{section}{4}
+\section{Name}
+\fi
+
+
+\subsection{Not Dirac not Einstein} 
+
+Here's citations to a website \cite{knuthwebsite} and a book \cite{knuth-fa}
+
+\ifsubbuild
+\printbibliography[segment=\therefsegment, heading=subbibliography] % print chapter bibliography
+\fi 
+
+\end{document}
